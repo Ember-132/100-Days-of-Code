@@ -82,7 +82,7 @@ while replay:
     get_user_card()
     get_computer_card()
     get_user_card()
-    print("Your cards are: ")
+    print("\nYour cards are: ")
     print(user_cards)
     print("The computers first card is:")
     print(computer_cards)

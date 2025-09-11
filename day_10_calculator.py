@@ -35,14 +35,18 @@ while not cont:
     first_digit = int(input("What is your first number?: "))
 
     cont = True
+    chosen_operation = None
     while cont:
-        chosen_operation = input('''
-        +
-        -
-        *
-        /
-        
-        Pick an operation from the above list: ''')
+        while chosen_operation not in operations:
+            if chosen_operation is not None:
+                print("\nPlease choose a valid operation.\n")
+            chosen_operation = input('''
+            +
+            -
+            *
+            /
+            
+            Pick an operation from the above list: ''')
 
         second_digit = int(input("What is your second number?: "))
 
