@@ -1,0 +1,58 @@
+{
+  "family": {
+    "mère": "mother",
+    "père": "father",
+    "frère": "brother",
+    "sœur": "sister",
+    "enfant": "child",
+    "amis": "friends"
+  },
+  "time": {
+    "matin": "morning",
+    "midi": "noon",
+    "soir": "evening",
+    "nuit": "night",
+    "hier": "yesterday",
+    "demain": "tomorrow"
+  },
+  "places": {
+    "maison": "house",
+    "école": "school",
+    "ville": "city",
+    "magasin": "shop",
+    "parc": "park",
+    "plage": "beach"
+  },
+  "food_drink": {
+    "pain": "bread",
+    "eau": "water",
+    "pomme": "apple",
+    "fromage": "cheese",
+    "vin": "wine",
+    "café": "coffee"
+  },
+  "actions": {
+    "marcher": "to walk",
+    "courir": "to run",
+    "manger": "to eat",
+    "boire": "to drink",
+    "parler": "to speak",
+    "écouter": "to listen"
+  },
+  "descriptions": {
+    "grand": "big/tall",
+    "petit": "small",
+    "beau": "beautiful",
+    "vieux": "old",
+    "jeune": "young",
+    "rapide": "fast"
+  },
+  "emotions": {
+    "heureux": "happy",
+    "triste": "sad",
+    "fatigué": "tired",
+    "en colère": "angry",
+    "calme": "calm",
+    "excité": "excited"
+  }
+}
