@@ -1,33 +1,46 @@
+import os
 import requests
 from twilio.rest import Client
-# api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+from dotenv import load_dotenv
 
-api_key = "77276c1d5821678ce5640e5d337c6c9e"
-account_sid = "AC61280fe3c1b6cd61e18432f6c07eb8e0"
-auth_token = "c0c87f141d9f167e72f94254d29a14ee"
+# load environment variables from .env file
+load_dotenv()
+api_key = os.getenv("OWM_API_KEY")
+account_sid = os.getenv("TWILIO_SID")
+auth_token = os.getenv("TWILIO_AUTH_TOKEN")
+from_number = os.getenv("TWILIO_FROM")
+to_number = os.getenv("TWILIO_TO")
+
+# define parameters for the OpenWeatherMap API request
 parameters = {
-    "lat": 50.733810,
-    "lon": -1.776020,
+    "lat": 50.0755,
+    "lon": 14.4378,
     "appid": api_key,
-    "cnt": 4
+    "cnt": 4 # number of forecast entries to check
 }
 
+# make the API call to retrieve the forecast data
 response = requests.get("https://api.openweathermap.org/data/2.5/forecast",params=parameters)
+# raise an error if the request fails
 response.raise_for_status()
+# convert the API response from JSON text to a Python dictionary
 data = response.json()
 
-will_rain = False
-numbers = [data["list"][index]["weather"][0]["id"] for index in range(0,4)]
-for item in numbers:
-    if item < 700:
-        will_rain = True
-if will_rain:
+# check the weather codes in the forecast. IDs below 700 indicate rain, drizzle, snow, or other precipitation.
+# check the first 4 forecast entries for any rain condition.
+will_rain = any(item["weather"][0]["id"] < 700 for item in data["list"][:4])
+
+# if rain is predicted and all Twilio credentials work, send a Whatsapp message
+if will_rain and account_sid and auth_token and from_number and to_number:
     client = Client(account_sid,auth_token)
     message = client.messages \
     .create(
         body="Hey there. It's gonna rain today!",
-        from_='whatsapp:+14155238886',
-        to='whatsapp:+447583378041'
+        from_= from_number,
+        to= to_number
     )
+    # print the message SID for confirmation
     print(message.sid)
-    
+else:
+    # otherwise print a fallback message if no rain forecast of credentials are missing
+    print("No rain detected, or missing credentials/numbers.")
